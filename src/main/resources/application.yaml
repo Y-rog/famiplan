@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: famiplan
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/famiplan
+    username: famiplan
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8081
+
