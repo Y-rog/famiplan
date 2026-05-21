@@ -7,6 +7,6 @@
     "@tailwindcss/cli": "^4.3.0"
   },
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./input.css -o ../static/css/main.css --minify"
+    "build": "npx @tailwindcss/cli -i input.css -o ../static/css/main^Css --watch"
   }
 }
