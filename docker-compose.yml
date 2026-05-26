@@ -1,40 +1,32 @@
-version: '3.8' #Version du format du fichier Docker Compose
-services: #Début de la section pour définir les conteneurs.
-  app:
-    build: . # Construit l'image à partir du Dockerfile du projet
-    container_name: famiplan-app
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
-      - "8080:8081" # Mappe le port hôte 8080 au port 8081 du conteneur
+      - "5432:5432"
+
+  app:
+    build: .
+    ports:
+      - 8080:8081
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
     depends_on:
-      - db # Assure que le conteneur 'db' démarre en premier
-    # Sécurité renforcée
-    user: "1000:1000"               # 1. Exécute le conteneur en tant qu'utilisateur non-root
-    read_only: true                  # 2. Système de fichiers en lecture seule
-    tmpfs:                           # 3. Espace temporaire en mémoire pour les fichiers temporaires
-      - /tmp
-    cap_drop:                        # 4. Supprime toutes les capacités Linux
-      - ALL
-    cap_add:                         # 5. Ajoute uniquement la capacité nécessaire
-      - NET_BIND_SERVICE            #    pour lier le port 8081
+      - db
     security_opt:
-      - no-new-privileges:true      # 6. Empêche l'élévation de privilèges
+      - no-new-privileges:true
 
-  db: #Nom du service (container)
-    image: postgres:18
-    container_name: famiplan-postgres
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: $${POSTGRES_DB}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+
 volumes:
   pgdata:
+
+
 
 #docker compose up -d --build
