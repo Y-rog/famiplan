@@ -3,12 +3,11 @@ spring:
     name: famiplan
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/famiplan
-    username: famiplan
-    password: password
+    url: jdbc:postgresql://db:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
 

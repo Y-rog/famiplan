@@ -1,11 +1,3 @@
-# Construire les assets avec Node.js
-FROM node:18 AS builder
-WORKDIR /app
-COPY src/main/resources/frontend/package*.json ./
-RUN npm ci
-COPY src/main/resources/frontend/ .
-RUN npm run build
-
 FROM eclipse-temurin:17-jre
 
 # Crée un utilisateur et un groupe non-root avec un UID/GID fixe
