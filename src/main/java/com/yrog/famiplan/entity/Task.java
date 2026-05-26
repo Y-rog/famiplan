@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -22,7 +23,7 @@ public class Task {
     private Long id;
 
     @Setter
-    @NotNull
+    @NotBlank
     private String description;
 
     @NotNull
