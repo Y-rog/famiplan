@@ -2,7 +2,7 @@
 FROM node:18 AS frontend
 WORKDIR /app
 COPY src/main/resources/frontend/package*.json ./
-RUN npm ci
+RUN npm ci --no-cache
 COPY src/main/resources/frontend/ .
 RUN npm run build
 
