@@ -11,6 +11,7 @@ FROM maven:3.9-eclipse-temurin-17 AS builder
 WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline
+# Cache bust: 2026-05-27
 COPY src ./src
 COPY --from=frontend /static/css/main.css src/main/resources/static/css/main.css
 RUN mvn clean package -DskipTests
