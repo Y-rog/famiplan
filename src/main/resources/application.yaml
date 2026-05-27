@@ -1,22 +1,14 @@
 spring:
   application:
     name: famiplan
-
   datasource:
-<<<<<<< HEAD
-    url: jdbc:postgresql://db:5432/${POSTGRES_DB}
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
-=======
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/famiplan}
     username: ${SPRING_DATASOURCE_USERNAME:changeme}
     password: ${SPRING_DATASOURCE_PASSWORD:changeme}
->>>>>>> dce92b7 (fix: remove default credentials from application.yaml)
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
-
 server:
   port: 8081
 
