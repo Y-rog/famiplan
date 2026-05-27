@@ -12,7 +12,7 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src ./src
-COPY --from=frontend /app/static/css/main.css src/main/resources/static/css/main.css
+COPY --from=frontend /static/css/main.css src/main/resources/static/css/main.css
 RUN mvn clean package -DskipTests
 
 # Étape 3 — Lancer l'app
