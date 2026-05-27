@@ -3,8 +3,8 @@ spring:
     name: famiplan
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/famiplan}
-    username: ${SPRING_DATASOURCE_USERNAME:yrogfamiplan}
-    password: ${SPRING_DATASOURCE_PASSWORD:Yrog0807}
+    username: ${SPRING_DATASOURCE_USERNAME:changeme}
+    password: ${SPRING_DATASOURCE_PASSWORD:changeme}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
