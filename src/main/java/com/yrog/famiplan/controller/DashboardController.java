@@ -1,7 +1,7 @@
 package com.yrog.famiplan.controller;
 
 import com.yrog.famiplan.entity.Task;
-import com.yrog.famiplan.repository.TaskRepository;
+import com.yrog.famiplan.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/dashboard")
 public class DashboardController {
 
-    private final TaskRepository taskRepository;
-    public DashboardController(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    private final TaskService taskService;
+    public DashboardController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
     @GetMapping
     public String getDashboard (Model model) {
-        model.addAttribute("tasks", taskRepository.findAll());
+        model.addAttribute("tasks", taskService.findAllTasks());
         model.addAttribute("task", new Task());
         return "dashboard";
     }
@@ -32,9 +32,7 @@ public class DashboardController {
         if (result.hasErrors()) {
             return "dashboard";
         }
-        taskRepository.save(task);
-
+        taskService.createTask(task);
         return "redirect:/dashboard";
-
     }
 }
