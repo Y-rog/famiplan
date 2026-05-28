@@ -6,10 +6,9 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -28,11 +27,34 @@ public class DashboardController {
     }
 
     @PostMapping
-    public String createTask(@Valid @ModelAttribute Task task, BindingResult result) {
+    public String createTask(@Valid @ModelAttribute Task task, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "dashboard";
+            model.addAttribute("tasks", taskService.findAllTasks());
+            return "redirect:/dashboard";
         }
         taskService.createTask(task);
+        return "redirect:/dashboard";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Optional<Task> task = taskService.getTaskById(id);
+        if (task.isEmpty()) {
+            return "redirect:/dashboard";
+        }
+        model.addAttribute("task", task.get());
+        return "edit-task";
+    }
+
+    @PatchMapping("/{id}/edit")
+    public String editTask (@PathVariable Long id, @ModelAttribute Task task){
+        taskService.updateTask(id, task);
         return "redirect:/dashboard";
     }
 }
