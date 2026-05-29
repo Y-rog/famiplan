@@ -19,6 +19,6 @@ server:
 
 app:
   admin:
-    username: ${APP_ADMIN_USERNAME:changeme}
-    password: ${APP_ADMIN_PASSWORD:changeme}
+    username: ${APP_ADMIN_USERNAME}
+    password: ${APP_ADMIN_PASSWORD}
 
