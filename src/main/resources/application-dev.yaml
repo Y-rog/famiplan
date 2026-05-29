@@ -3,3 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/famiplan
     username: yrogfamiplan
     password: Yrog0807
+
+app:
+  admin:
+    username: admin
+    password: admin123
